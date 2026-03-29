@@ -135,4 +135,4 @@ This project demonstrates how a recruitment system can be fully designed and imp
 
 ## Author
 
-Smb
+Smbat Petrosyan
