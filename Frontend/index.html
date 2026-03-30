@@ -6,427 +6,305 @@
     <title>Recruitment System</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; }
 
         .navbar {
-            background-color: #333;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #1a1a2e; color: white;
+            padding: 14px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,.3);
         }
-
         .navbar h1 { font-size: 20px; }
+        .navbar-right { display: flex; gap: 16px; align-items: center; font-size: 14px; }
+        .logout-btn { background: #e74c3c; color: white; border: none; padding: 7px 14px; cursor: pointer; border-radius: 4px; }
+        .logout-btn:hover { background: #c0392b; }
 
-        .navbar-right {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+        .container { max-width: 1100px; margin: 24px auto; padding: 0 20px; }
 
-        .logout-btn {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+        .card { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
 
-        .logout-btn:hover { background-color: #c9302c; }
-
-        .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .form-group { margin-bottom: 15px; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
         .form-group input,
         .form-group select,
         .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            width: 100%; padding: 9px 12px; border: 1px solid #ccc;
+            border-radius: 5px; font-size: 14px;
         }
+        .form-group textarea { resize: vertical; min-height: 80px; }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
+        .btn { background: #2980b9; color: white; border: none; padding: 9px 18px; cursor: pointer; border-radius: 5px; font-size: 14px; }
+        .btn:hover { background: #1f6fa3; }
+        .btn-danger  { background: #e74c3c; } .btn-danger:hover  { background: #c0392b; }
+        .btn-success { background: #27ae60; } .btn-success:hover { background: #1e8449; }
+        .btn-warning { background: #e67e22; } .btn-warning:hover { background: #ca6f1e; }
+        .btn-sm { padding: 5px 10px; font-size: 12px; }
 
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .btn:hover { background-color: #0056b3; }
-
-        .btn-danger { background-color: #dc3545; }
-        .btn-danger:hover { background-color: #c82333; }
-
-        .btn-success { background-color: #28a745; }
-        .btn-success:hover { background-color: #218838; }
-
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-        }
-
-        tr:hover { background-color: #f8f9fa; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 11px 13px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; }
+        tr:hover td { background: #fafbfc; }
 
         .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-weight: bold;
+            display: inline-block; padding: 3px 9px; border-radius: 12px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
         }
+        .badge-pending   { background: #fef3cd; color: #856404; }
+        .badge-interview { background: #cfe2ff; color: #084298; }
+        .badge-pass      { background: #d1e7dd; color: #0a3622; }
+        .badge-reject    { background: #f8d7da; color: #842029; }
+        .badge-accepted  { background: #d1e7dd; color: #0a3622; }
+        .badge-rejected  { background: #f8d7da; color: #842029; }
+        .badge-open      { background: #d1e7dd; color: #0a3622; }
+        .badge-closed    { background: #e2e3e5; color: #383d41; }
+        .badge-candidate { background: #d1ecf1; color: #0c5460; }
+        .badge-recruiter { background: #e2d9f3; color: #432874; }
+        .badge-admin     { background: #f8d7da; color: #842029; }
+        .badge-hr        { background: #fde3c8; color: #7d3a00; }
+        .badge-null, .badge-scheduled { background: #cfe2ff; color: #084298; }
 
-        .badge-pending { background-color: #ffc107; color: #333; }
-        .badge-accepted { background-color: #28a745; color: white; }
-        .badge-rejected { background-color: #dc3545; color: white; }
-        .badge-candidate { background-color: #17a2b8; color: white; }
-        .badge-recruiter { background-color: #6f42c1; color: white; }
-        .badge-admin { background-color: #dc3545; color: white; }
-        .badge-hr { background-color: #fd7e14; color: white; }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
+        .tab-buttons { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid #eee; }
         .tab-btn {
-            background: none;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 2px solid transparent;
+            background: none; border: none; padding: 10px 18px; cursor: pointer;
+            font-size: 14px; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px;
         }
-
-        .tab-btn.active {
-            border-bottom-color: #007bff;
-            color: #007bff;
-            font-weight: bold;
-        }
-
+        .tab-btn:hover { color: #2980b9; }
+        .tab-btn.active { color: #2980b9; border-bottom-color: #2980b9; font-weight: 600; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-        }
+        .alert { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+        .alert-error   { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+        .alert-success { background: #d1e7dd; color: #0a3622; border: 1px solid #badbcc; }
 
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
         .job-card {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: white; padding: 20px; border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.1); border-left: 4px solid #2980b9;
         }
+        .job-card h3 { margin-bottom: 8px; font-size: 16px; }
+        .job-card p  { margin-bottom: 6px; color: #666; font-size: 13px; }
+        .job-card .job-actions { margin-top: 14px; }
 
-        .job-card h3 { margin-bottom: 10px; }
-        .job-card p { margin-bottom: 8px; color: #666; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+        .stat-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 18px; text-align: center; }
+        .stat-box .stat-number { font-size: 32px; font-weight: 700; color: #2980b9; }
+        .stat-box .stat-label  { font-size: 12px; color: #777; margin-top: 4px; }
 
-        /* Stats grid for admin */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-bottom: 10px;
-        }
-
-        .stat-box {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .stat-box .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        .stat-box .stat-label {
-            font-size: 13px;
-            color: #666;
-            margin-top: 6px;
-        }
-
-        /* Profile info styling */
-        .profile-info p {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 15px;
-        }
-
+        .profile-info p { padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
         .profile-info p:last-child { border-bottom: none; }
 
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.45); z-index: 1000;
+            justify-content: center; align-items: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal { background: white; border-radius: 10px; padding: 28px; width: 100%; max-width: 460px; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+        .modal h3 { margin-bottom: 6px; font-size: 17px; }
+        .modal .meta { font-size: 13px; color: #666; margin-bottom: 18px; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+
+        .empty-state { text-align: center; padding: 40px; color: #aaa; font-size: 14px; }
+        h2 { margin-bottom: 18px; font-size: 20px; color: #222; }
         .hidden { display: none !important; }
-
-        h2 { margin-bottom: 20px; }
-
-        .select-input {
-            padding: 5px;
-            min-width: 120px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 15px;
-        }
     </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <div class="navbar hidden" id="navbar">
-    <h1>Recruitment System</h1>
+    <h1>🏢 Recruitment System</h1>
     <div class="navbar-right">
-        <span>Welcome, <strong id="navUsername"></strong> &nbsp;|&nbsp; <span id="navRole"></span></span>
+        <span>Logged in as <strong id="navUsername"></strong> &nbsp;·&nbsp; <span id="navRole"></span></span>
         <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
 </div>
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 <div id="loginPage" class="container">
-    <div class="card" style="max-width: 420px; margin: 60px auto 0;">
-        <h2 style="margin-bottom: 24px;">Login</h2>
-        <div id="loginError" class="error hidden"></div>
-
+    <div class="card" style="max-width:420px;margin:70px auto 0;">
+        <h2 style="margin-bottom:22px;">Login</h2>
+        <div id="loginError" class="alert alert-error hidden"></div>
         <div class="form-group">
             <label>Email</label>
-            <input type="text" id="username-input" placeholder="Enter email">
+            <input type="text" id="username-input" placeholder="Enter your email">
         </div>
-
         <div class="form-group">
             <label>Password</label>
-            <input type="password" id="password-input" placeholder="Enter password"
+            <input type="password" id="password-input" placeholder="Enter your password"
                    onkeydown="if(event.key==='Enter') login()">
         </div>
-
-        <button class="btn" style="width: 100%;" onclick="login()">Login</button>
-
-        <hr style="margin: 20px 0;">
-        <p style="font-size: 12px; color: #999; margin-bottom: 8px;"><strong>Test Accounts</strong></p>
-        <p style="font-size: 12px; color: #999;">Candidate: candidate1@test.com / password</p>
-        <p style="font-size: 12px; color: #999;">Recruiter: recruiter1@test.com / password</p>
-        <p style="font-size: 12px; color: #999;">Admin: admin1@test.com / password</p>
+        <button class="btn" style="width:100%;padding:11px;" onclick="login()">Login</button>
+        <hr style="margin:20px 0;border-color:#eee;">
+        <p style="font-size:12px;color:#aaa;margin-bottom:6px;font-weight:bold;">Test Accounts</p>
+        <p style="font-size:12px;color:#bbb;">Candidate: candidate1@test.com / password</p>
+        <p style="font-size:12px;color:#bbb;">Recruiter: recruiter1@test.com / password</p>
+        <p style="font-size:12px;color:#bbb;">HR: hr1@test.com / password</p>
+        <p style="font-size:12px;color:#bbb;">Admin: admin1@test.com / password</p>
     </div>
 </div>
 
-<!-- MAIN DASHBOARD -->
+<!-- DASHBOARDS -->
 <div id="dashboard" class="container hidden">
 
-    <!-- ===== CANDIDATE DASHBOARD ===== -->
+    <!-- CANDIDATE -->
     <div id="candidateDashboard" class="hidden">
         <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('jobs', this)">Available Jobs</button>
-            <button class="tab-btn" onclick="switchTab('myApplications', this)">My Applications</button>
-            <button class="tab-btn" onclick="switchTab('profile', this)">My Profile</button>
+            <button class="tab-btn active" onclick="switchTab('cJobs',         this)">Available Jobs</button>
+            <button class="tab-btn"        onclick="switchTab('cApplications',  this)">My Applications</button>
+            <button class="tab-btn"        onclick="switchTab('cInterviews',    this)">My Interviews</button>
+            <button class="tab-btn"        onclick="switchTab('cProfile',       this)">My Profile</button>
         </div>
-
-        <div id="jobs" class="tab-content active">
-            <div class="card">
-                <h2>Available Jobs</h2>
-                <div id="jobsList" class="grid"></div>
-            </div>
+        <div id="cJobs" class="tab-content active">
+            <div class="card"><h2>Available Jobs</h2><div id="jobsList" class="grid"></div></div>
         </div>
-
-        <div id="myApplications" class="tab-content">
-            <div class="card">
-                <h2>My Applications</h2>
-                <div id="applicationsList"></div>
-            </div>
+        <div id="cApplications" class="tab-content">
+            <div class="card"><h2>My Applications</h2><div id="applicationsList"></div></div>
         </div>
-
-        <div id="profile" class="tab-content">
-            <div class="card">
-                <h2>My Profile</h2>
-                <div id="profileInfo" class="profile-info"></div>
-            </div>
+        <div id="cInterviews" class="tab-content">
+            <div class="card"><h2>My Interviews</h2><div id="candidateInterviewsList"></div></div>
+        </div>
+        <div id="cProfile" class="tab-content">
+            <div class="card"><h2>My Profile</h2><div id="profileInfo" class="profile-info"></div></div>
         </div>
     </div>
 
-    <!-- ===== RECRUITER DASHBOARD ===== -->
+    <!-- RECRUITER -->
     <div id="recruiterDashboard" class="hidden">
         <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('createJob', this)">Post a Job</button>
-            <button class="tab-btn" onclick="switchTab('applications', this)">Applications</button>
-            <button class="tab-btn" onclick="switchTab('recruiterProfile', this)">My Profile</button>
+            <button class="tab-btn active" onclick="switchTab('rCreateJob',    this)">Post a Job</button>
+            <button class="tab-btn"        onclick="switchTab('rApplications', this)">Applications</button>
+            <button class="tab-btn"        onclick="switchTab('rProfile',      this)">My Profile</button>
         </div>
-
-        <div id="createJob" class="tab-content active">
+        <div id="rCreateJob" class="tab-content active">
             <div class="card">
                 <h2>Post New Job</h2>
-                <div id="jobCreateSuccess" class="success hidden"></div>
-                <div class="form-group">
-                    <label>Job Title</label>
-                    <input type="text" id="jobTitle" placeholder="e.g., Senior Developer">
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="jobDescription" placeholder="Job description..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Salary ($)</label>
-                    <input type="number" id="jobSalary" placeholder="e.g., 80000">
-                </div>
+                <div id="jobCreateSuccess" class="alert alert-success hidden"></div>
+                <div class="form-group"><label>Job Title</label><input type="text" id="jobTitle" placeholder="e.g., Senior Developer"></div>
+                <div class="form-group"><label>Description</label><textarea id="jobDescription" placeholder="Job description..."></textarea></div>
+                <div class="form-group"><label>Salary ($)</label><input type="number" id="jobSalary" placeholder="e.g., 80000"></div>
                 <button class="btn" onclick="createJob()">Post Job</button>
             </div>
         </div>
+        <div id="rApplications" class="tab-content">
+            <div class="card"><h2>Applications for Your Jobs</h2><div id="recruiterApplicationsList"></div></div>
+        </div>
+        <div id="rProfile" class="tab-content">
+            <div class="card"><h2>My Profile</h2><div id="recruiterProfileInfo" class="profile-info"></div></div>
+        </div>
+    </div>
 
-        <div id="applications" class="tab-content">
+    <!-- HR -->
+    <div id="hrDashboard" class="hidden">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchHrTab('hrApplicationsTab', this)">All Applications</button>
+            <button class="tab-btn"        onclick="switchHrTab('hrInterviewsTab',   this)">Interviews</button>
+        </div>
+
+        <div id="hrApplicationsTab" class="tab-content active">
             <div class="card">
-                <h2>Applications for Your Jobs</h2>
-                <div id="recruiterApplicationsList"></div>
+                <h2>All Applications</h2>
+                <p style="font-size:13px;color:#888;margin-bottom:16px;">
+                    Review every application. Use <strong>Schedule Interview</strong> to invite a candidate.
+                </p>
+                <div id="hrApplicationsList"></div>
             </div>
         </div>
 
-        <div id="recruiterProfile" class="tab-content">
+        <div id="hrInterviewsTab" class="tab-content">
             <div class="card">
-                <h2>My Profile</h2>
-                <div id="recruiterProfileInfo" class="profile-info"></div>
+                <h2>Interviews</h2>
+                <p style="font-size:13px;color:#888;margin-bottom:16px;">
+                    Set the outcome — <strong>Pass</strong> closes the job · <strong>Reject</strong> keeps it open.
+                </p>
+                <div id="hrInterviewsList"></div>
             </div>
         </div>
     </div>
 
-    <!-- ===== ADMIN DASHBOARD ===== -->
+    <!-- ADMIN -->
     <div id="adminDashboard" class="hidden">
         <div class="tab-buttons">
             <button class="tab-btn active" onclick="switchAdminTab('adminStatsTab', this)">Statistics</button>
-            <button class="tab-btn" onclick="switchAdminTab('adminUsersTab', this)">All Users</button>
-            <button class="tab-btn" onclick="switchAdminTab('adminJobsTab', this)">All Jobs</button>
+            <button class="tab-btn"        onclick="switchAdminTab('adminUsersTab', this)">All Users</button>
+            <button class="tab-btn"        onclick="switchAdminTab('adminJobsTab',  this)">All Jobs</button>
         </div>
-
-        <!-- Stats Tab -->
         <div id="adminStatsTab" class="tab-content active">
-            <div class="card">
-                <h2>System Statistics</h2>
-                <div id="adminStats" class="stats-grid"></div>
-            </div>
+            <div class="card"><h2>System Statistics</h2><div id="adminStats" class="stats-grid"></div></div>
         </div>
-
-        <!-- Users Tab -->
         <div id="adminUsersTab" class="tab-content">
-            <div class="card">
-                <h2>All Users</h2>
-                <div id="adminUsersList"></div>
-            </div>
+            <div class="card"><h2>All Users</h2><div id="adminUsersList"></div></div>
         </div>
-
-        <!-- Jobs Tab -->
         <div id="adminJobsTab" class="tab-content">
-            <div class="card">
-                <h2>All Jobs</h2>
-                <div id="adminJobsList"></div>
-            </div>
+            <div class="card"><h2>All Jobs</h2><div id="adminJobsList"></div></div>
         </div>
     </div>
 
-</div><!-- end #dashboard -->
+</div><!-- /#dashboard -->
+
+<!-- SCHEDULE INTERVIEW MODAL -->
+<div class="modal-overlay" id="scheduleModal">
+    <div class="modal">
+        <h3>📅 Schedule Interview</h3>
+        <div class="meta">
+            Candidate: <strong id="modalCandidateName"></strong><br>
+            Job: <strong id="modalJobTitle"></strong>
+        </div>
+        <div class="form-group">
+            <label>Interview Date</label>
+            <input type="date" id="interviewDateInput">
+        </div>
+        <div class="form-group">
+            <label>Interview Type <span style="font-weight:normal;color:#999;">(optional)</span></label>
+            <select id="interviewTypeInput">
+                <option value="">— Select type —</option>
+                <option value="Phone Screen">Phone Screen</option>
+                <option value="Technical">Technical</option>
+                <option value="HR">HR</option>
+                <option value="Panel">Panel</option>
+                <option value="Final">Final</option>
+            </select>
+        </div>
+        <div class="modal-actions">
+            <button class="btn" style="background:#aaa;" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-success" onclick="confirmScheduleInterview()">Confirm</button>
+        </div>
+    </div>
+</div>
 
 <script>
 const API_URL = 'http://localhost:3000/api';
-let currentUser = null;
+let currentUser    = null;
+let pendingInterview = null;
 
-// ===========================
+// ============================================================
 // LOGIN / LOGOUT
-// ===========================
+// ============================================================
 async function login() {
     const username = document.getElementById('username-input').value.trim();
     const password = document.getElementById('password-input').value;
+    const errEl    = document.getElementById('loginError');
+    errEl.classList.add('hidden');
 
     if (!username || !password) {
-        showError('loginError', 'Please enter email and password');
+        errEl.textContent = 'Please enter email and password.';
+        errEl.classList.remove('hidden');
         return;
     }
 
-    document.getElementById('loginError').classList.add('hidden');
-
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const res  = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         });
+        const data = await res.json();
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            showError('loginError', data.error || 'Login failed');
+        if (!res.ok) {
+            errEl.textContent = data.error || 'Login failed';
+            errEl.classList.remove('hidden');
             return;
         }
 
@@ -436,94 +314,83 @@ async function login() {
         document.getElementById('loginPage').classList.add('hidden');
         document.getElementById('navbar').classList.remove('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
-
         document.getElementById('navUsername').textContent = currentUser.username;
-        document.getElementById('navRole').textContent = currentUser.role;
+        document.getElementById('navRole').textContent     = currentUser.role;
 
         const role = currentUser.role.toLowerCase();
-
-        if (role === 'candidate') {
-            document.getElementById('candidateDashboard').classList.remove('hidden');
-            loadCandidateDashboard();
-        } else if (role === 'recruiter') {
-            document.getElementById('recruiterDashboard').classList.remove('hidden');
-            loadRecruiterDashboard();
-        } else if (role === 'admin') {
-            document.getElementById('adminDashboard').classList.remove('hidden');
-            loadAdminDashboard();
-        } else if (role === 'hr') {
-            // HR uses recruiter dashboard
-            document.getElementById('recruiterDashboard').classList.remove('hidden');
-            loadRecruiterDashboard();
-        }
+        if      (role === 'candidate') { show('candidateDashboard'); loadCandidateDashboard(); }
+        else if (role === 'recruiter') { show('recruiterDashboard'); loadRecruiterDashboard(); }
+        else if (role === 'hr')        { show('hrDashboard');        loadHrDashboard();        }
+        else if (role === 'admin')     { show('adminDashboard');     loadAdminDashboard();     }
 
     } catch (err) {
-        showError('loginError', 'Login failed: ' + err.message);
+        errEl.textContent = 'Login failed: ' + err.message;
+        errEl.classList.remove('hidden');
     }
 }
 
 function logout() {
     localStorage.removeItem('token');
     currentUser = null;
+    ['candidateDashboard','recruiterDashboard','hrDashboard','adminDashboard'].forEach(hide);
+    hide('dashboard'); hide('navbar');
     document.getElementById('loginPage').classList.remove('hidden');
-    document.getElementById('navbar').classList.add('hidden');
-    document.getElementById('dashboard').classList.add('hidden');
-    document.getElementById('candidateDashboard').classList.add('hidden');
-    document.getElementById('recruiterDashboard').classList.add('hidden');
-    document.getElementById('adminDashboard').classList.add('hidden');
     document.getElementById('username-input').value = '';
     document.getElementById('password-input').value = '';
     document.getElementById('loginError').classList.add('hidden');
 }
 
-// ===========================
-// TAB SWITCHING
-// ===========================
-function switchTab(tabName, button) {
-    document.querySelectorAll('#candidateDashboard .tab-content, #recruiterDashboard .tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('#candidateDashboard .tab-btn, #recruiterDashboard .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabName).classList.add('active');
-    button.classList.add('active');
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
 
-    if (tabName === 'myApplications') loadCandidateApplications();
-    if (tabName === 'profile') loadCandidateProfile();
-    if (tabName === 'applications') loadRecruiterApplications();
-    if (tabName === 'recruiterProfile') loadRecruiterProfile();
+// ============================================================
+// TAB HELPERS
+// ============================================================
+function switchTab(tabId, btn) {
+    const dash = btn.closest('[id$="Dashboard"]');
+    dash.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    dash.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+    if (tabId === 'cApplications') loadCandidateApplications();
+    if (tabId === 'cInterviews')   loadCandidateInterviews();
+    if (tabId === 'cProfile')      loadCandidateProfile();
+    if (tabId === 'rApplications') loadRecruiterApplications();
+    if (tabId === 'rProfile')      loadRecruiterProfile();
 }
 
-function switchAdminTab(tabName, button) {
+function switchHrTab(tabId, btn) {
+    document.querySelectorAll('#hrDashboard .tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#hrDashboard .tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+    if (tabId === 'hrApplicationsTab') loadHrApplications();
+    if (tabId === 'hrInterviewsTab')   loadHrInterviews();
+}
+
+function switchAdminTab(tabId, btn) {
     document.querySelectorAll('#adminDashboard .tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('#adminDashboard .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabName).classList.add('active');
-    button.classList.add('active');
-
-    if (tabName === 'adminUsersTab') loadAdminUsers();
-    if (tabName === 'adminJobsTab') loadAdminJobs();
-    if (tabName === 'adminStatsTab') loadAdminStats();
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+    if (tabId === 'adminStatsTab') loadAdminStats();
+    if (tabId === 'adminUsersTab') loadAdminUsers();
+    if (tabId === 'adminJobsTab')  loadAdminJobs();
 }
 
-// ===========================
+// ============================================================
 // CANDIDATE
-// ===========================
-async function loadCandidateDashboard() {
-    await loadJobs();
-    await loadCandidateApplications();
-    await loadCandidateProfile();
+// ============================================================
+function loadCandidateDashboard() {
+    loadJobs(); loadCandidateApplications(); loadCandidateInterviews(); loadCandidateProfile();
 }
 
 async function loadJobs() {
     try {
-        const response = await fetch(`${API_URL}/jobs`);
-        const jobs = await response.json();
-
-        const jobsList = document.getElementById('jobsList');
-        jobsList.innerHTML = '';
-
-        if (!jobs.length) {
-            jobsList.innerHTML = '<p class="empty-state">No jobs available right now.</p>';
-            return;
-        }
-
+        const jobs = await apiFetch(`${API_URL}/jobs`);
+        const el   = document.getElementById('jobsList');
+        if (!jobs.length) { el.innerHTML = '<p class="empty-state">No open jobs available.</p>'; return; }
+        el.innerHTML = '';
         jobs.forEach(job => {
             const card = document.createElement('div');
             card.className = 'job-card';
@@ -531,404 +398,383 @@ async function loadJobs() {
                 <h3>${job.title}</h3>
                 <p><strong>Company:</strong> ${job.company_name || 'N/A'}</p>
                 <p><strong>Recruiter:</strong> ${job.recruiter_name || 'N/A'}</p>
-                <p><strong>Salary:</strong> $${job.salary ? job.salary.toLocaleString() : 'Not specified'}</p>
-                <p style="margin-bottom: 14px;">${job.description || 'No description provided.'}</p>
-                <button class="btn btn-success" onclick="applyJob(${job.job_id})">Apply</button>
-            `;
-            jobsList.appendChild(card);
+                <p><strong>Salary:</strong> ${job.salary ? '$' + Number(job.salary).toLocaleString() : 'Not specified'}</p>
+                <p style="margin-top:8px;">${job.description || ''}</p>
+                <div class="job-actions">
+                    <button class="btn btn-success btn-sm" onclick="applyJob(${job.job_id})">Apply Now</button>
+                </div>`;
+            el.appendChild(card);
         });
-    } catch (err) {
-        console.error('Error loading jobs:', err);
-    }
+    } catch (err) { console.error(err); }
 }
 
 async function applyJob(jobId) {
     try {
-        const response = await fetch(`${API_URL}/apply`, {
+        const res = await fetch(`${API_URL}/apply`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ candidate_id: currentUser.candidate_id, job_id: jobId })
         });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert('Application submitted successfully!');
-            await loadCandidateApplications();
-        } else {
-            alert(data.error || 'Failed to apply');
-        }
-    } catch (err) {
-        alert('Failed to apply: ' + err.message);
-    }
+        const data = await res.json();
+        if (res.ok) { alert('Application submitted!'); loadCandidateApplications(); }
+        else alert(data.error || 'Failed to apply');
+    } catch (err) { alert('Error: ' + err.message); }
 }
 
 async function loadCandidateApplications() {
     try {
-        const response = await fetch(`${API_URL}/applications/candidate/${currentUser.candidate_id}`);
-        const apps = await response.json();
-
-        const list = document.getElementById('applicationsList');
-
-        if (!apps.length) {
-            list.innerHTML = '<p class="empty-state">You have not applied to any jobs yet.</p>';
-            return;
-        }
-
-        let html = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Job Title</th>
-                        <th>Company</th>
-                        <th>Recruiter</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-        apps.forEach(app => {
-            const statusClass = app.status ? app.status.toLowerCase() : 'pending';
+        const apps = await apiFetch(`${API_URL}/applications/candidate/${currentUser.candidate_id}`);
+        const el   = document.getElementById('applicationsList');
+        if (!apps.length) { el.innerHTML = '<p class="empty-state">No applications yet.</p>'; return; }
+        let html = tableHead(['Job', 'Company', 'Job Status', 'Application Status', 'Applied']);
+        apps.forEach(a => {
             html += `<tr>
-                <td>${app.title}</td>
-                <td>${app.company_name || 'N/A'}</td>
-                <td>${app.recruiter_name || 'N/A'}</td>
-                <td><span class="badge badge-${statusClass}">${app.status}</span></td>
-                <td>${new Date(app.application_date).toLocaleDateString()}</td>
+                <td>${a.title}</td>
+                <td>${a.company_name || 'N/A'}</td>
+                <td>${badge(a.job_status || 'Open')}</td>
+                <td>${badge(a.status)}</td>
+                <td>${fmtDate(a.application_date)}</td>
             </tr>`;
         });
-        html += '</tbody></table>';
-        list.innerHTML = html;
-    } catch (err) {
-        console.error('Error loading applications:', err);
-    }
+        el.innerHTML = html + '</tbody></table>';
+    } catch (err) { console.error(err); }
+}
+
+async function loadCandidateInterviews() {
+    try {
+        const list = await apiFetch(`${API_URL}/interviews/candidate/${currentUser.candidate_id}`);
+        const el   = document.getElementById('candidateInterviewsList');
+        if (!list.length) { el.innerHTML = '<p class="empty-state">No interviews scheduled yet.</p>'; return; }
+        let html = tableHead(['Job', 'Company', 'Interview Date', 'Type', 'Result']);
+        list.forEach(i => {
+            const result = i.result || 'Pending';
+            html += `<tr>
+                <td>${i.job_title}</td>
+                <td>${i.company_name || 'N/A'}</td>
+                <td>${i.interview_date ? new Date(i.interview_date).toLocaleDateString() : '—'}</td>
+                <td>${i.interview_type || '—'}</td>
+                <td>${badge(result)}</td>
+            </tr>`;
+        });
+        el.innerHTML = html + '</tbody></table>';
+    } catch (err) { console.error(err); }
 }
 
 async function loadCandidateProfile() {
-    const info = document.getElementById('profileInfo');
+    const el = document.getElementById('profileInfo');
     try {
-        const response = await fetch(`${API_URL}/candidate/${currentUser.candidate_id}`);
-
-        if (!response.ok) throw new Error('Failed to fetch profile');
-
-        const profile = await response.json();
-
-        let skillsHtml = 'N/A';
-        if (profile.skills && profile.skills.length > 0) {
-            skillsHtml = profile.skills.map(s => `<span class="badge" style="background:#e9ecef;color:#333;margin-right:4px;">${s.name}</span>`).join(' ');
-        }
-
-        info.innerHTML = `
-            <p><strong>Full Name:</strong> ${profile.name || 'N/A'}</p>
-            <p><strong>Email:</strong> ${profile.email || 'N/A'}</p>
-            <p><strong>Phone:</strong> ${profile.phone || 'N/A'}</p>
-            <p><strong>Skills:</strong> ${skillsHtml}</p>
-        `;
-    } catch (err) {
-        // Fallback to login data
-        info.innerHTML = `
-            <p><strong>Full Name:</strong> ${(currentUser.first_name || '') + ' ' + (currentUser.last_name || '') || 'N/A'}</p>
+        const p = await apiFetch(`${API_URL}/candidate/${currentUser.candidate_id}`);
+        const skillsHtml = (p.skills && p.skills.length)
+            ? p.skills.map(s => `<span class="badge" style="background:#e9ecef;color:#444;">${s.name}</span>`).join(' ')
+            : 'N/A';
+        el.innerHTML = `
+            <p><strong>Full Name:</strong> ${p.name || 'N/A'}</p>
+            <p><strong>Email:</strong> ${p.email || 'N/A'}</p>
+            <p><strong>Phone:</strong> ${p.phone || 'N/A'}</p>
+            <p><strong>Skills:</strong> ${skillsHtml}</p>`;
+    } catch {
+        el.innerHTML = `
+            <p><strong>Full Name:</strong> ${(currentUser.first_name||'')+' '+(currentUser.last_name||'')}</p>
             <p><strong>Email:</strong> ${currentUser.email || currentUser.username || 'N/A'}</p>
-            <p><strong>Phone:</strong> N/A</p>
-            <p><strong>Skills:</strong> N/A</p>
-        `;
+            <p><strong>Phone:</strong> N/A</p>`;
     }
 }
 
-// ===========================
+// ============================================================
 // RECRUITER
-// ===========================
-async function loadRecruiterDashboard() {
-    await loadRecruiterApplications();
-    await loadRecruiterProfile();
-}
+// ============================================================
+function loadRecruiterDashboard() { loadRecruiterApplications(); loadRecruiterProfile(); }
 
 async function createJob() {
     const title = document.getElementById('jobTitle').value.trim();
-    const description = document.getElementById('jobDescription').value.trim();
-    const salary = document.getElementById('jobSalary').value;
-
-    if (!title) {
-        alert('Please enter a job title');
-        return;
-    }
-
+    if (!title) { alert('Please enter a job title'); return; }
     try {
-        const response = await fetch(`${API_URL}/jobs`, {
+        const res = await fetch(`${API_URL}/jobs`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title,
-                description,
-                salary: parseInt(salary) || 0,
+                description: document.getElementById('jobDescription').value.trim(),
+                salary: parseInt(document.getElementById('jobSalary').value) || 0,
                 recruiter_id: currentUser.recruiter_id
             })
         });
-
-        if (response.ok) {
-            document.getElementById('jobTitle').value = '';
-            document.getElementById('jobDescription').value = '';
-            document.getElementById('jobSalary').value = '';
-
+        if (res.ok) {
+            ['jobTitle','jobDescription','jobSalary'].forEach(id => document.getElementById(id).value = '');
             const msg = document.getElementById('jobCreateSuccess');
             msg.textContent = 'Job posted successfully!';
             msg.classList.remove('hidden');
             setTimeout(() => msg.classList.add('hidden'), 3000);
-        } else {
-            const data = await response.json();
-            alert(data.error || 'Failed to create job');
-        }
-    } catch (err) {
-        alert('Error: ' + err.message);
-    }
+        } else { const d = await res.json(); alert(d.error || 'Failed to create job'); }
+    } catch (err) { alert('Error: ' + err.message); }
 }
 
 async function loadRecruiterApplications() {
     try {
-        const response = await fetch(`${API_URL}/recruiter-applications/${currentUser.recruiter_id}`);
-        const apps = await response.json();
-
-        const list = document.getElementById('recruiterApplicationsList');
-
-        if (!apps.length) {
-            list.innerHTML = '<p class="empty-state">No applications received yet.</p>';
-            return;
-        }
-
-        let html = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Candidate</th>
-                        <th>Job</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Contact</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-        apps.forEach(app => {
+        const apps = await apiFetch(`${API_URL}/recruiter-applications/${currentUser.recruiter_id}`);
+        const el   = document.getElementById('recruiterApplicationsList');
+        if (!apps.length) { el.innerHTML = '<p class="empty-state">No applications yet.</p>'; return; }
+        let html = tableHead(['Candidate', 'Job', 'Job Status', 'Status', 'Date', 'Contact']);
+        apps.forEach(a => {
             html += `<tr>
-                <td>${app.candidate_name}</td>
-                <td>${app.title}</td>
-                <td>
-                    <select class="select-input" onchange="updateApplicationStatus(${app.application_id}, this.value)">
-                        <option value="Pending"  ${app.status === 'Pending'  ? 'selected' : ''}>Pending</option>
-                        <option value="Accepted" ${app.status === 'Accepted' ? 'selected' : ''}>Accepted</option>
-                        <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
-                    </select>
-                </td>
-                <td>${new Date(app.application_date).toLocaleDateString()}</td>
-                <td><a href="mailto:${app.email}" style="color:#007bff;">Email</a></td>
+                <td>${a.candidate_name}</td>
+                <td>${a.title}</td>
+                <td>${badge(a.job_status || 'Open')}</td>
+                <td>${badge(a.status)}</td>
+                <td>${fmtDate(a.application_date)}</td>
+                <td><a href="mailto:${a.email}" style="color:#2980b9;">Email</a></td>
             </tr>`;
         });
-        html += '</tbody></table>';
-        list.innerHTML = html;
-    } catch (err) {
-        console.error('Error loading applications:', err);
-    }
-}
-
-async function updateApplicationStatus(appId, newStatus) {
-    try {
-        const response = await fetch(`${API_URL}/applications/${appId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: newStatus })
-        });
-
-        if (!response.ok) {
-            alert('Failed to update status');
-        }
-    } catch (err) {
-        alert('Error: ' + err.message);
-    }
+        el.innerHTML = html + '</tbody></table>';
+    } catch (err) { console.error(err); }
 }
 
 async function loadRecruiterProfile() {
-    const info = document.getElementById('recruiterProfileInfo');
+    const el = document.getElementById('recruiterProfileInfo');
     try {
-        const response = await fetch(`${API_URL}/recruiter/${currentUser.recruiter_id}`);
-
-        if (!response.ok) throw new Error('Failed to fetch profile');
-
-        const profile = await response.json();
-
-        info.innerHTML = `
-            <p><strong>Full Name:</strong> ${profile.name || 'N/A'}</p>
-            <p><strong>Email:</strong> ${profile.email || 'N/A'}</p>
-            <p><strong>Company:</strong> ${profile.company_name || 'N/A'}</p>
-        `;
-    } catch (err) {
-        info.innerHTML = `
-            <p><strong>Full Name:</strong> ${(currentUser.first_name || '') + ' ' + (currentUser.last_name || '') || 'N/A'}</p>
+        const p = await apiFetch(`${API_URL}/recruiter/${currentUser.recruiter_id}`);
+        el.innerHTML = `
+            <p><strong>Full Name:</strong> ${p.name || 'N/A'}</p>
+            <p><strong>Email:</strong> ${p.email || 'N/A'}</p>
+            <p><strong>Company:</strong> ${p.company_name || 'N/A'}</p>`;
+    } catch {
+        el.innerHTML = `
+            <p><strong>Full Name:</strong> ${(currentUser.first_name||'')+' '+(currentUser.last_name||'')}</p>
             <p><strong>Email:</strong> ${currentUser.email || currentUser.username || 'N/A'}</p>
-            <p><strong>Company:</strong> N/A</p>
-        `;
+            <p><strong>Company:</strong> N/A</p>`;
     }
 }
 
-// ===========================
-// ADMIN
-// ===========================
-async function loadAdminDashboard() {
-    await loadAdminStats();
-    await loadAdminUsers();
-    await loadAdminJobs();
+// ============================================================
+// HR
+// ============================================================
+function loadHrDashboard() { loadHrApplications(); loadHrInterviews(); }
+
+async function loadHrApplications() {
+    const el = document.getElementById('hrApplicationsList');
+    try {
+        const apps = await apiFetch(`${API_URL}/hr/applications`);
+        if (!apps.length) { el.innerHTML = '<p class="empty-state">No applications found.</p>'; return; }
+
+        let html = tableHead(['Candidate', 'Job', 'Applied', 'App. Status', 'Interview Date', 'Type', 'Result', 'Action']);
+        apps.forEach(a => {
+            const hasInterview = !!a.interview_id;
+            const jobClosed    = a.job_status === 'Closed';
+
+            const interviewDateCell = hasInterview
+                ? (a.interview_date ? new Date(a.interview_date).toLocaleDateString() : '—')
+                : '—';
+            const typeCell   = hasInterview ? (a.interview_type || '—') : '—';
+            const resultCell = hasInterview ? badge(a.interview_result || 'Pending') : '—';
+
+            let actionCell;
+            if (hasInterview) {
+                actionCell = '<em style="color:#aaa;font-size:12px;">Scheduled</em>';
+            } else if (jobClosed) {
+                actionCell = '<em style="color:#aaa;font-size:12px;">Job closed</em>';
+            } else {
+                actionCell = `<button class="btn btn-warning btn-sm"
+                    onclick="openScheduleModal(${a.application_id},'${esc(a.candidate_name)}','${esc(a.job_title)}')">
+                    📅 Schedule
+                </button>`;
+            }
+
+            html += `<tr>
+                <td><strong>${a.candidate_name}</strong><br>
+                    <a href="mailto:${a.candidate_email}" style="font-size:12px;color:#2980b9;">${a.candidate_email}</a></td>
+                <td>${a.job_title}<br>${badge(a.job_status || 'Open')}</td>
+                <td>${fmtDate(a.application_date)}</td>
+                <td>${badge(a.application_status)}</td>
+                <td>${interviewDateCell}</td>
+                <td>${typeCell}</td>
+                <td>${resultCell}</td>
+                <td>${actionCell}</td>
+            </tr>`;
+        });
+        el.innerHTML = html + '</tbody></table>';
+    } catch (err) {
+        el.innerHTML = '<p class="alert alert-error">Failed to load applications.</p>';
+        console.error(err);
+    }
 }
+
+async function loadHrInterviews() {
+    const el = document.getElementById('hrInterviewsList');
+    try {
+        const list = await apiFetch(`${API_URL}/hr/interviews`);
+        if (!list.length) { el.innerHTML = '<p class="empty-state">No interviews scheduled yet.</p>'; return; }
+
+        let html = tableHead(['Candidate', 'Job', 'Interview Date', 'Type', 'Result', 'Action']);
+        list.forEach(i => {
+            const result    = i.result;
+            const isDecided = result === 'Pass' || result === 'Reject';
+
+            const actionCell = isDecided
+                ? `<em style="color:#aaa;font-size:12px;">Decision recorded</em>`
+                : `<div style="display:flex;gap:8px;">
+                     <button class="btn btn-success btn-sm" onclick="setResult(${i.interview_id},'Pass')">✔ Pass</button>
+                     <button class="btn btn-danger  btn-sm" onclick="setResult(${i.interview_id},'Reject')">✖ Reject</button>
+                   </div>`;
+
+            html += `<tr>
+                <td><strong>${i.candidate_name}</strong><br>
+                    <a href="mailto:${i.candidate_email}" style="font-size:12px;color:#2980b9;">${i.candidate_email}</a></td>
+                <td>${i.job_title}<br>${badge(i.job_status || 'Open')}</td>
+                <td>${i.interview_date ? new Date(i.interview_date).toLocaleDateString() : '—'}</td>
+                <td>${i.interview_type || '—'}</td>
+                <td>${badge(result || 'Pending')}</td>
+                <td>${actionCell}</td>
+            </tr>`;
+        });
+        el.innerHTML = html + '</tbody></table>';
+    } catch (err) {
+        el.innerHTML = '<p class="alert alert-error">Failed to load interviews.</p>';
+        console.error(err);
+    }
+}
+
+async function setResult(interviewId, result) {
+    const msg = result === 'Pass'
+        ? 'Mark as PASS? This will close the job so no new applications come in.'
+        : 'Mark as REJECT? The job will remain open.';
+    if (!confirm(msg)) return;
+    try {
+        const res = await fetch(`${API_URL}/hr/interview/${interviewId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ result })
+        });
+        if (res.ok) { loadHrInterviews(); loadHrApplications(); }
+        else { const d = await res.json(); alert(d.error || 'Failed to update'); }
+    } catch (err) { alert('Error: ' + err.message); }
+}
+
+// ---- Modal ----
+function openScheduleModal(appId, candidateName, jobTitle) {
+    pendingInterview = { application_id: appId };
+    document.getElementById('modalCandidateName').textContent = candidateName;
+    document.getElementById('modalJobTitle').textContent      = jobTitle;
+    // Default to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('interviewDateInput').value  = tomorrow.toISOString().split('T')[0];
+    document.getElementById('interviewTypeInput').value  = '';
+    document.getElementById('scheduleModal').classList.add('open');
+}
+
+function closeModal() {
+    document.getElementById('scheduleModal').classList.remove('open');
+    pendingInterview = null;
+}
+
+async function confirmScheduleInterview() {
+    const interview_date = document.getElementById('interviewDateInput').value;
+    const interview_type = document.getElementById('interviewTypeInput').value || null;
+    if (!interview_date) { alert('Please select a date'); return; }
+    if (!pendingInterview) return;
+
+    try {
+        const res = await fetch(`${API_URL}/hr/interview`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...pendingInterview, interview_date, interview_type })
+        });
+        if (res.ok) { closeModal(); loadHrApplications(); loadHrInterviews(); }
+        else { const d = await res.json(); alert(d.error || 'Failed to schedule'); }
+    } catch (err) { alert('Error: ' + err.message); }
+}
+
+// ============================================================
+// ADMIN
+// ============================================================
+function loadAdminDashboard() { loadAdminStats(); loadAdminUsers(); loadAdminJobs(); }
 
 async function loadAdminStats() {
     try {
-        const response = await fetch(`${API_URL}/admin/stats`);
-        if (!response.ok) throw new Error('Failed to load stats');
-        const stats = await response.json();
-
-        const statsDiv = document.getElementById('adminStats');
-        statsDiv.innerHTML = `
-            <div class="stat-box">
-                <div class="stat-number">${stats.total_users ?? 0}</div>
-                <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">${stats.total_candidates ?? 0}</div>
-                <div class="stat-label">Candidates</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">${stats.total_recruiters ?? 0}</div>
-                <div class="stat-label">Recruiters</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">${stats.total_jobs ?? 0}</div>
-                <div class="stat-label">Jobs Posted</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">${stats.total_applications ?? 0}</div>
-                <div class="stat-label">Applications</div>
-            </div>
-        `;
-    } catch (err) {
-        document.getElementById('adminStats').innerHTML = '<p class="error">Failed to load statistics.</p>';
-        console.error('Error loading admin stats:', err);
-    }
+        const s = await apiFetch(`${API_URL}/admin/stats`);
+        document.getElementById('adminStats').innerHTML = `
+            <div class="stat-box"><div class="stat-number">${s.total_users??0}</div><div class="stat-label">Total Users</div></div>
+            <div class="stat-box"><div class="stat-number">${s.total_candidates??0}</div><div class="stat-label">Candidates</div></div>
+            <div class="stat-box"><div class="stat-number">${s.total_recruiters??0}</div><div class="stat-label">Recruiters</div></div>
+            <div class="stat-box"><div class="stat-number">${s.total_jobs??0}</div><div class="stat-label">Total Jobs</div></div>
+            <div class="stat-box"><div class="stat-number">${s.open_jobs??0}</div><div class="stat-label">Open Jobs</div></div>
+            <div class="stat-box"><div class="stat-number">${s.total_applications??0}</div><div class="stat-label">Applications</div></div>
+            <div class="stat-box"><div class="stat-number">${s.total_interviews??0}</div><div class="stat-label">Interviews</div></div>`;
+    } catch { document.getElementById('adminStats').innerHTML = '<p class="alert alert-error">Failed to load stats.</p>'; }
 }
 
 async function loadAdminUsers() {
+    const el = document.getElementById('adminUsersList');
     try {
-        const response = await fetch(`${API_URL}/admin/users`);
-        if (!response.ok) throw new Error('Failed to load users');
-        const users = await response.json();
-
-        const list = document.getElementById('adminUsersList');
-
-        if (!users.length) {
-            list.innerHTML = '<p class="empty-state">No users found.</p>';
-            return;
-        }
-
-        let html = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Company</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-        users.forEach(user => {
-            const roleLower = (user.role || '').toLowerCase();
+        const users = await apiFetch(`${API_URL}/admin/users`);
+        if (!users.length) { el.innerHTML = '<p class="empty-state">No users found.</p>'; return; }
+        let html = tableHead(['ID', 'Full Name', 'Email', 'Role', 'Company', 'Action']);
+        users.forEach(u => {
             html += `<tr>
-                <td>${user.user_id}</td>
-                <td>${user.full_name || 'N/A'}</td>
-                <td>${user.email}</td>
-                <td><span class="badge badge-${roleLower}">${user.role}</span></td>
-                <td>${user.company_name !== 'N/A' ? user.company_name : '—'}</td>
-                <td>
-                    <button class="btn btn-danger btn-sm"
-                        onclick="deleteUser(${user.user_id}, '${user.email}')">Delete</button>
-                </td>
+                <td>${u.user_id}</td>
+                <td>${u.full_name || 'N/A'}</td>
+                <td>${u.email}</td>
+                <td>${badge(u.role)}</td>
+                <td>${u.company_name !== 'N/A' ? u.company_name : '—'}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${u.user_id},'${esc(u.email)}')">Delete</button></td>
             </tr>`;
         });
-        html += '</tbody></table>';
-        list.innerHTML = html;
-    } catch (err) {
-        document.getElementById('adminUsersList').innerHTML = '<p class="error">Failed to load users.</p>';
-        console.error('Error loading admin users:', err);
-    }
+        el.innerHTML = html + '</tbody></table>';
+    } catch { el.innerHTML = '<p class="alert alert-error">Failed to load users.</p>'; }
 }
 
 async function deleteUser(userId, email) {
     if (!confirm(`Delete user "${email}"? This cannot be undone.`)) return;
-
     try {
-        const response = await fetch(`${API_URL}/admin/users/${userId}`, { method: 'DELETE' });
-        if (response.ok) {
-            await loadAdminUsers();
-            await loadAdminStats();
-        } else {
-            alert('Failed to delete user');
-        }
-    } catch (err) {
-        alert('Error: ' + err.message);
-    }
+        const res = await fetch(`${API_URL}/admin/users/${userId}`, { method: 'DELETE' });
+        if (res.ok) { loadAdminUsers(); loadAdminStats(); }
+        else alert('Failed to delete user');
+    } catch (err) { alert('Error: ' + err.message); }
 }
 
 async function loadAdminJobs() {
+    const el = document.getElementById('adminJobsList');
     try {
-        const response = await fetch(`${API_URL}/admin/jobs`);
-        if (!response.ok) throw new Error('Failed to load jobs');
-        const jobs = await response.json();
-
-        const list = document.getElementById('adminJobsList');
-
-        if (!jobs.length) {
-            list.innerHTML = '<p class="empty-state">No jobs found.</p>';
-            return;
-        }
-
-        let html = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Recruiter</th>
-                        <th>Company</th>
-                        <th>Salary</th>
-                        <th>Applications</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-        jobs.forEach(job => {
+        const jobs = await apiFetch(`${API_URL}/admin/jobs`);
+        if (!jobs.length) { el.innerHTML = '<p class="empty-state">No jobs found.</p>'; return; }
+        let html = tableHead(['ID', 'Title', 'Recruiter', 'Company', 'Salary', 'Status', 'Applications']);
+        jobs.forEach(j => {
             html += `<tr>
-                <td>${job.job_id}</td>
-                <td>${job.title}</td>
-                <td>${job.recruiter_name || 'N/A'}</td>
-                <td>${job.company_name || 'N/A'}</td>
-                <td>${job.salary ? '$' + job.salary.toLocaleString() : 'N/A'}</td>
-                <td>${job.application_count}</td>
+                <td>${j.job_id}</td>
+                <td>${j.title}</td>
+                <td>${j.recruiter_name || 'N/A'}</td>
+                <td>${j.company_name  || 'N/A'}</td>
+                <td>${j.salary ? '$' + Number(j.salary).toLocaleString() : 'N/A'}</td>
+                <td>${badge(j.status || 'Open')}</td>
+                <td>${j.application_count}</td>
             </tr>`;
         });
-        html += '</tbody></table>';
-        list.innerHTML = html;
-    } catch (err) {
-        document.getElementById('adminJobsList').innerHTML = '<p class="error">Failed to load jobs.</p>';
-        console.error('Error loading admin jobs:', err);
-    }
+        el.innerHTML = html + '</tbody></table>';
+    } catch { el.innerHTML = '<p class="alert alert-error">Failed to load jobs.</p>'; }
 }
 
-// ===========================
-// UTILITIES
-// ===========================
-function showError(elementId, message) {
-    const elem = document.getElementById(elementId);
-    elem.textContent = message;
-    elem.classList.remove('hidden');
+// ============================================================
+// UTILS
+// ============================================================
+async function apiFetch(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
 }
+
+function tableHead(cols) {
+    return `<table><thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+}
+
+function badge(val) {
+    if (!val) return '<span class="badge badge-null">—</span>';
+    const key = val.toLowerCase().replace(/\s+/g, '-');
+    return `<span class="badge badge-${key}">${val}</span>`;
+}
+
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString() : '—'; }
+
+function esc(str) { return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 </script>
-
 </body>
 </html>
