@@ -6,10 +6,26 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// ================================================================
+// ONE-TIME SQL — run once in your database if not already done:
+//
+// ALTER TABLE dbo.JOB
+//   ADD status NVARCHAR(20) NOT NULL DEFAULT 'Open';
+//
+// Your INTERVIEW table already exists:
+// CREATE TABLE dbo.INTERVIEW (
+//   interview_id    INT IDENTITY(1,1) PRIMARY KEY,
+//   interview_date  DATE NULL,
+//   interview_type  VARCHAR(50) NULL,
+//   result          VARCHAR(50) NULL,
+//   application_id  INT NOT NULL  -- FK → dbo.APPLICATION
+// );
+// ================================================================
+
 // ================= DB CONFIG =================
 const dbConfig = {
   user: 'testuser',
-  password: 'Testpassword!',
+  password: 'Test123!',
   server: 'localhost',
   database: 'JobRecruitmentDataBase',
   options: {
@@ -20,6 +36,7 @@ const dbConfig = {
 };
 
 let pool;
+
 async function getConnection() {
   if (!pool) pool = await sql.connect(dbConfig);
   return pool;
@@ -373,10 +390,14 @@ app.post('/api/hr/interview', async (req, res) => {
     if (existing)
       return res.status(400).json({ error: 'Interview already scheduled for this application' });
 
+    // interview_id is not IDENTITY — compute the next id manually
+    const maxRow  = await queryOne(`SELECT ISNULL(MAX(interview_id), 0) + 1 AS next_id FROM dbo.INTERVIEW`);
+    const next_id = maxRow.next_id;
+
     await execute(
-      `INSERT INTO dbo.INTERVIEW (application_id, interview_date, interview_type)
-       VALUES (@application_id, @interview_date, @interview_type)`,
-      { application_id, interview_date, interview_type: interview_type || null }
+      `INSERT INTO dbo.INTERVIEW (interview_id, application_id, interview_date, interview_type)
+       VALUES (@next_id, @application_id, @interview_date, @interview_type)`,
+      { next_id, application_id, interview_date, interview_type: interview_type || null }
     );
 
     // Mark application as "Interview"
