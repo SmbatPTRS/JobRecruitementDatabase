@@ -6,21 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// ================================================================
-// ONE-TIME SQL — run once in your database if not already done:
-//
-// ALTER TABLE dbo.JOB
-//   ADD status NVARCHAR(20) NOT NULL DEFAULT 'Open';
-//
-// Your INTERVIEW table already exists:
-// CREATE TABLE dbo.INTERVIEW (
-//   interview_id    INT IDENTITY(1,1) PRIMARY KEY,
-//   interview_date  DATE NULL,
-//   interview_type  VARCHAR(50) NULL,
-//   result          VARCHAR(50) NULL,
-//   application_id  INT NOT NULL  -- FK → dbo.APPLICATION
-// );
-// ================================================================
+
 
 // ================= DB CONFIG =================
 const dbConfig = {
