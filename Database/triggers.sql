@@ -26,34 +26,7 @@ BEGIN
 END;
 
 
-USE [JobRecruitmentDataBase]
-GO
-/****** Object:  Trigger [dbo].[trg_PreventDuplicateApplication]    Script Date: 4/8/2026 10:15:00 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER TRIGGER [dbo].[trg_PreventDuplicateApplication]
-ON [dbo].[APPLICATION]
-INSTEAD OF INSERT
-AS
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM dbo.APPLICATION a
-        JOIN inserted i
-        ON a.candidate_id = i.candidate_id
-        AND a.job_id = i.job_id
-    )
-    BEGIN
-        PRINT 'Duplicate application is not allowed';
-        RETURN;
-    END
 
-    INSERT INTO dbo.APPLICATION (candidate_id, job_id, status, application_date)
-    SELECT candidate_id, job_id, status, application_date
-    FROM inserted;
-END;
 
 
 
